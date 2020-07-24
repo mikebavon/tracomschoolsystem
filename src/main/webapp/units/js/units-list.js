@@ -31,6 +31,12 @@ var courseUnit = {
               "<input type=\"submit\" value=\"Submit\">"+
             "</form>";
 
+        var addForm = "<form action=\"/action_page.php\">";
+        this.form.forEach(field) {
+               addForm += `<label for=\"{field.id}\">{field.label}</label><br>` +
+                `<input type=\"{field.type}\" id=\"{field.id}\" name=\"{field.name}\"><br>`
+        }
+
          document.getElementById("content").innerHTML = addForm;
 
     },

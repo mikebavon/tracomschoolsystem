@@ -1,10 +1,3 @@
-// function Faculty(title, name, institution, department) {
-//     this.title = title;
-//     this.name = name;
-//     this.institution = institution;
-//     this.department = department;
-// }
-
 // An icon to show delete action
 const deleteIcon = '<i class="fa fa-trash"></i>';
 
@@ -16,6 +9,8 @@ const manageFaculty = {
     },
 
     getLibrary(key) {
+
+        // data format: [{title:"...", name:"...", ....},]
         let data = localStorage.getItem(key) ?
             JSON.parse(localStorage.getItem(key)) : [];
         return data;
@@ -69,8 +64,8 @@ const manageFaculty = {
         let institution = document.querySelector("#institution").value;
         let department = document.querySelector("#department").value;
 
-        return { title, name, institution, department };
-        //return new Faculty(title, name, institution, department);
+        return { title: title, name: name, institution: institution, department: department };
+
     },
 
     render(myLibrary) {
@@ -79,15 +74,17 @@ const manageFaculty = {
         // display all
         myLibrary.forEach((faculty, id) => {
             let facultyInfo = document.createElement('tr');
-            let facultyKeys = Object.keys(faculty);
-            facultyKeys.push("delete");
+            let facultyKeys = Object.keys(faculty); // A list of object keys
+            facultyKeys.push("delete"); // add delete key
 
+            //
             facultyKeys.forEach((key) => {
                 let entry = document.createElement('td');
                 if (key == "delete") {
                     entry.innerHTML = deleteIcon;
                     entry.classList.add('delete');
                     entry.setAttribute("data-id", id);
+
                     entry.addEventListener('click', function() {
                         manageFaculty.removeFromLibrary(myLibrary, entry.dataset.id, "faculty", "#fac-list");
                     });
@@ -104,7 +101,7 @@ const manageFaculty = {
     },
 
     start() {
-        let STORAGE_KEY = "institution";
+        let STORAGE_KEY = "faculty";
         let myLibrary = this.getLibrary(STORAGE_KEY);
 
         let addBtn = document.querySelector("#add-btn");
