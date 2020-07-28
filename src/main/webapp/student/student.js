@@ -52,7 +52,7 @@ TracomAcademy.Grid.apply({
     ],
     form: {
         id: "students-form",
-        url: "./save",
+        url: "students",
         items: [{
             label: "Name",
             name: "sname",
