@@ -1,6 +1,8 @@
 package tracom.academy.database;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Connect to the database, create database/tables and handle CRUD operations.
@@ -12,6 +14,8 @@ public class Database {
     private String password;
     private boolean dbExists;
     private Connection dbConnection;
+    private ArrayList<String> stringData=new ArrayList<String>();
+    private ArrayList<Integer> integerData = new ArrayList<Integer>();
 
     /** SQL statements to create tables */
     private final String CREATE_TABLE_STUDENTS_SQL="CREATE TABLE IF NOT EXISTS students ("
@@ -150,6 +154,91 @@ public class Database {
             }
         }
     }
+
+    /**
+     * Get all data of type String that is to be saved.
+     * @param strings
+     */
+    public void stringData(String ...strings){
+        for(String s: strings) this.stringData.add(s);
+    }
+
+    /**
+     * Get all data of type int that is to be saved.
+     * @param ints
+     */
+    public void integerData(int ...ints){
+        for(int i: ints) this.integerData.add(i);
+    }
+
+    /**
+     * Insert data in the table.
+     * @param sql
+     * @return TRUE if data saved successfully. Otherwise FALSE.
+     */
+    public boolean save(String sql){
+        boolean dataSaved = false;
+        Iterator stringIterator = this.stringData.iterator();
+        Iterator integerIterator = this.integerData.iterator();
+        PreparedStatement statement = null;
+        try {
+            statement = this.dbConnection.prepareStatement(sql);
+            this.dbConnection.setAutoCommit(false);
+            this.dbConnection.commit();
+            int idx = 1;
+            while(stringIterator.hasNext()){
+                statement.setString(idx, (String) stringIterator.next());
+                idx++;
+            }
+            while (integerIterator.hasNext()) {
+                statement.setInt(idx, (Integer) integerIterator.next());
+                idx++;
+            }
+            int rows = statement.executeUpdate();
+            if(rows > 0)
+                dataSaved = true;
+            this.dbConnection.setAutoCommit(true);
+        }catch (SQLException sqlException){
+            dataSaved = false;
+        }finally {
+            this.stringData.clear();
+            this.integerData.clear();
+            try {
+                if (statement != null) statement.close();
+                if (this.dbConnection != null) this.dbConnection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                //TODO handle exception properly
+            }
+        }
+        return dataSaved;
+    }
+
+    /**
+     * Retrieve all data from table
+     * @return new ResultSet of table data. Else null on failure to query table
+     */
+    public ResultSet read(String sql){
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = this.dbConnection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            //TODO handle exception properly
+        }finally {
+            try {
+                if (statement != null) statement.close();
+                if (this.dbConnection != null) this.dbConnection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                //TODO handle exception properly
+            }
+        }
+        return resultSet;
+    }
+
 
     public void executeQuery(String sql){
 
