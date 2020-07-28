@@ -75,9 +75,15 @@ public class Database {
         this.database = database;
         this.userName = userName;
         this.password = password;
-        String dbFullUrl = this.url + this.database;
+
+
+    }
+    public void createDatabase(){
         try{
-            this.dbConnection = DriverManager.getConnection(dbFullUrl, this.userName, this.password);
+            Connection dbConnection = DriverManager.getConnection(this.url, this.userName, this.password);
+            Statement statement = dbConnection.createStatement();
+            statement.executeUpdate("create database if not exists " + this.database);
+
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
             //TODO handle exception properly
@@ -115,6 +121,7 @@ public class Database {
             }
         }
     }
+
 }
 
 

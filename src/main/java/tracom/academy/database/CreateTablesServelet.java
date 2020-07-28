@@ -11,7 +11,8 @@ import java.io.IOException;
 @WebServlet("/create-tables")
 public class CreateTablesServelet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "password1234");
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password");
+        database.createDatabase();
         database.createTables();
         //TODO redirect to index with SUCCESS/FAILURE message
     }
