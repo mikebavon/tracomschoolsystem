@@ -1,5 +1,51 @@
 var TracomAcademy = TracomAcademy || {};
 
+TracomAcademy.JsLoader = {
+	loadedJs: [],
+	labUtil: function(){
+		var me = this;
+
+		//file to LAB
+		var fl = arguments[0];
+
+		//fn to create
+		var fnname = arguments[1];
+		var fn = window[fnname];
+
+		//fn params
+		var fnparams = [];
+		for (var i = 2; i < arguments.length; i++) {
+			fnparams.push(arguments[i]);
+		}
+
+		//check if fn executed
+		if(me.loadedJs.indexOf(fl) < 0){
+			$LAB.script("./" + fl + ".js?v=" + Date.now()).wait(function(){
+				me.loadedJs.push(fl);
+				if (typeof fn === "function"){
+					fn.apply(null,fnparams);
+
+				}else if(typeof fn === "undefined" && typeof fnname !== "undefined"){ //retry
+					fn = window[fnname];
+					fn.apply(null,fnparams);
+
+				}
+			});
+		}else{
+			fn.apply(null,fnparams);
+
+		}
+	},
+	registerLinkHandler: function(linkId, file, func){
+        document.getElementById(linkId).addEventListener("click", event => {
+           event.preventDefault();
+
+           this.labUtil(file, func);
+
+        });
+	}
+};
+
 TracomAcademy.Grid = function(){
     let me = this;
 
@@ -7,12 +53,14 @@ TracomAcademy.Grid = function(){
     let tableHeader = '';
     let tableRows = '';
 
+    //construct table columns
     me.columns.forEach(column => {
         tableColGrp += `<col width='${column.width}%'>`;
         tableHeader += `<th>${column.header}</th>`;
 
     });
 
+    //load table data
     me.store.forEach(record => {
         tableRows += `<tr>`;
         me.columns.forEach(column => {
@@ -22,6 +70,7 @@ TracomAcademy.Grid = function(){
 
     });
 
+    //adding grid buttons
     let addButton = me.componentId + '-add';
     let editButton = me.componentId + '-edit';
     let deleteButton = me.componentId + '-delete';
@@ -50,7 +99,7 @@ TracomAcademy.Grid = function(){
 TracomAcademy.Form = function(){
    let me = this;
 
-   let form = `<div class="form-container" onsubmit="return false"><form>`;
+   let form = `<div class="form-container" onsubmit="return false;"><form>`;
 
    me.form.items.forEach(field => {
         form += `<div class="row">`
@@ -82,5 +131,53 @@ TracomAcademy.Form = function(){
     + `</div></form>`;
 
    document.getElementById(me.contentRender).innerHTML = form;
+
+   document.getElementById(submitFormBtn).addEventListener("click", event => {
+       event.preventDefault();
+
+       TracomAcademy.FormSave.call(me);
+
+   });
+
+
+}
+
+TracomAcademy.FormSave = function(){
+  var me = this;
+
+  let postData = '';
+
+   me.form.items.forEach(field => {
+        postData += `${field.name}=` + encodeURIComponent(document.getElementById(field.id).value) + `&`;
+   });
+
+   let xhr = new XMLHttpRequest();
+
+   xhr.onreadystatechange = function(){
+    if (xhr.readyState == XMLHttpRequest.DONE){
+        if (xhr.status == 200){
+            console.log("Successfull");
+
+            let response = eval('(' + xhr.responseText + ')');
+
+            console.log(response);
+
+            me.store = response;
+
+            TracomAcademy.Grid.call(me);
+
+        }else{
+            alert('Error ocurred ' + xhr.status);
+
+        }
+
+    }
+
+   }
+
+   xhr.open('post', me.form.url, true);
+   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+   xhr.send(postData);
+
 
 }
