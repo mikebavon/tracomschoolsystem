@@ -80,6 +80,7 @@ public class Database {
             this.dbConnection = DriverManager.getConnection(dbFullUrl, this.userName, this.password);
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
+            
             //TODO handle exception properly
         }
     }
