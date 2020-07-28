@@ -12,8 +12,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.lang.*;
-import java.sql.*;
 
 
 
@@ -25,15 +23,12 @@ public class UnitAction extends HttpServlet {
         String code = request.getParameter("code");
         String details = request.getParameter("details");
 
-        try {
-            Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
-            database.executeQuery("insert into units (unit_id, name, code, details) values(" + (new Random()).nextInt(10000) + ",'" + name + "','" + code+ "','" + details+
+        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
+        database.executeQuery("insert into units (unit_id, name, code, details) values(" + (new Random()).nextInt(10000) + ",'" + name + "','" + code+ "','" + details+
                     "')");
 
-            response.getWriter().println("Saved");
-        } catch (ClassNotFoundException e) {
-            System.err.println(e);
-        }
+        response.getWriter().println("Saved");
+
 
 
     }

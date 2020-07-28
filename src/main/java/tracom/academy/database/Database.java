@@ -78,8 +78,7 @@ public class Database {
      * @param userName
      * @param password
      */
-    public Database(String url, String database, String userName, String password) throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
+    public Database(String url, String database, String userName, String password){
         this.url = url;
         this.database = database;
         this.userName = userName;

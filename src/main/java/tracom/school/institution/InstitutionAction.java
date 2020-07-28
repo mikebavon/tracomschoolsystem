@@ -34,10 +34,11 @@ public class InstitutionAction extends HttpServlet {
                     + ",'" + name + "','" + address + "','" + location + "','" + type +
                     "')");
             System.out.println("saved to DB");
-        } catch (Exception e) {
-            // TODO
+        } catch (SQLException e) {
             System.err.println(e);
         }
+
+
 
 
 //        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
