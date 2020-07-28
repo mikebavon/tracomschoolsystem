@@ -1,22 +1,27 @@
 <html>
-
+<head>
+    <meta charset="UTF-8">
+    <title>School Management System</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="LAB.min.js"></script>
+</head>
 <body>
     <div>
-        <h2>Tracom Training School Management System</h2>
+        <h3>TRACOM ACADEMY - SCHOOL MANAGEMENT SYSTEM</h3>
     </div>
-    <div>
-        <ul>
-            <li><a href="./institution/institution.html">Institutions</a></li>
-            <li><a href="campuses.html">Campuses</a></li>
-            <li><a href="./faculty/faculty.html">Faculties</a></li>
-            <li><a href="./departments/Departments.html">Departments</a></li>
-            <li><a href="./courses/Courses.html">Courses</a></li>
-            <li><a href="./units/units.html">Units</a></li>
-            <li><a href="./student/student.html">Students</a></li>
-            <li><a href="./tutor/tutor.html">Tutors</a></li>
+    <div class="topnav">
+      <a class="active" href="#home">INSTITUTIONS</a>
+      <a href="#">CAMPUSES</a>
+      <a href="#">FACULTIES</a>
+      <a href="#">DEPARTMENTS</a>
+      <a href="#">COURSES</a>
+      <a href="#" id="topnav-units">UNITS</a>
+      <a href="#">STUDENTS</a>
+      <a href="#">LECTURERS</a>
+    </div>
+    <div id="content"></div>
 
-        </ul>
-    </div>
+    <script src="app-library.js"></script>
+    <script src="links.js"></script>
 </body>
-
 </html>
