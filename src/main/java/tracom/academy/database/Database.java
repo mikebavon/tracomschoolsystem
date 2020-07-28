@@ -3,13 +3,14 @@ package tracom.academy.database;
 import java.sql.*;
 
 /**
- * Connect to the database, create tables and handle CRUD operations.
+ * Connect to the database, create database/tables and handle CRUD operations.
  */
 public class Database {
     private String url;
     private String database;
     private String userName;
     private String password;
+    private boolean dbExists;
     private Connection dbConnection;
 
     /** SQL statements to create tables */
@@ -70,36 +71,32 @@ public class Database {
             this.CREATE_TABLE_TUTORS_SQL
     };
 
-
     /**
-     * Connect to the database
+     * Establish the connection to the database server/database.
+     * Set @param dbExists to TRUE if connecting to an existing database on the server,
+     * Set to FALSE if connecting to the server to create a new database.
      * @param url
-     * @param database
-     * @param userName
-     * @param password
+     * @param database database name to be created
+     * @param userName database server user name
+     * @param password database server user password
+     * @param dbExists TRUE if database exists. Else FALSE
      */
-    public Database(String url, String database, String userName, String password) {
+    public Database(String url, String database, String userName, String password, boolean dbExists) {
         this.url = url;
         this.database = database;
         this.userName = userName;
         this.password = password;
-
-
-    }
-    public void createDatabase(){
-        try{
-            Connection dbConnection = DriverManager.getConnection(this.url, this.userName, this.password);
-            Statement statement = dbConnection.createStatement();
-            statement.executeUpdate("create database if not exists " + this.database);
-
-        }catch (SQLException sqlException){
+        this.dbExists = dbExists;
+        try {
+            if(this.dbExists)
+                this.dbConnection = DriverManager.getConnection(this.url + this.database, this.userName, this.password);
+            else
+                this.dbConnection = DriverManager.getConnection(this.url , this.userName, this.password);
+        } catch (SQLException sqlException) {
             sqlException.printStackTrace();
             //TODO handle exception properly
-        }finally {
-
         }
     }
-
 
     /**
      * @return database connection.
@@ -108,6 +105,27 @@ public class Database {
         return this.dbConnection;
     }
 
+    /**
+     * Create a new database.
+     */
+    public void createDatabase(){
+        PreparedStatement statement = null;
+        try{
+            statement = this.dbConnection.prepareStatement("CREATE DATABASE IF NOT EXISTS " + this.database);
+            statement.executeUpdate();
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            //TODO handle exception properly
+        }finally {
+            try {
+                if (statement != null) statement.close();
+                if (this.dbConnection != null) this.dbConnection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                //TODO handle exception properly
+            }
+        }
+    }
 
     /**
      * Create tables in the database.
@@ -115,9 +133,8 @@ public class Database {
     public void createTables() {
         PreparedStatement statement = null;
         try {
-            Connection dbConnection = DriverManager.getConnection(this.url + this.database, this.userName, this.password);
             for (String sql : this.createTablesSql) {
-                statement = dbConnection.prepareStatement(sql);
+                statement = this.dbConnection.prepareStatement(sql);
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -126,6 +143,7 @@ public class Database {
         } finally {
             try {
                 if (statement != null) statement.close();
+                if (this.dbConnection != null) this.dbConnection.close();
             } catch (Exception e) {
                 e.printStackTrace();
                 //TODO handle exception properly
