@@ -78,14 +78,14 @@ public class Database {
      * @param userName
      * @param password
      */
-    public Database(String url, String database, String userName, String password) {
+    public Database(String url, String database, String userName, String password) throws ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
         this.url = url;
         this.database = database;
         this.userName = userName;
         this.password = password;
-
-
     }
+
     public void createDatabase(){
         try{
             Connection dbConnection = DriverManager.getConnection(this.url, this.userName, this.password);
@@ -99,7 +99,6 @@ public class Database {
 
         }
     }
-
 
     /**
      * @return database connection.
@@ -133,6 +132,7 @@ public class Database {
         }
     }
 
+
     public void executeQuery(String sql){
 
         PreparedStatement statement = null;
@@ -155,6 +155,18 @@ public class Database {
         }
     }
 
+    public Connection connect() {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url+database, userName, password);
+            System.out.println("Connected to the DB server successfully.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Exiting...");
+            System.exit(1);
+        }
+        return conn;
+    }
 }
 
 
