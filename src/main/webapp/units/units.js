@@ -27,12 +27,12 @@ function renderUnits(){
             url: "units",
             items: [{
                 label: "Name",
-                name: "cname",
-                id: "unit.cname",
+                name: "name",
+                id: "unit.name",
                 type: "text"
             },{
                 label: "Code",
-                name: "ccode",
+                name: "code",
                 id: "unit.code",
                 type: "text"
             },{
@@ -40,18 +40,6 @@ function renderUnits(){
                 name: "details",
                 id: "unit.details",
                 type: "textarea"
-            },{
-                label: "Course",
-                name: "course",
-                id: "unit.course",
-                type: "select",
-                options: [{
-                    "optionLabel": "Computer Science",
-                    "optionValue": "COMPUTER_SCIENCE"
-                },{
-                    "optionLabel": "Software Engineering",
-                    "optionValue": "SOFTWARE_ENGINEERING"
-                }]
             }]
         }
      });
