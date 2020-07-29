@@ -39,9 +39,7 @@ TracomAcademy.JsLoader = {
 	registerLinkHandler: function(linkId, file, func){
         document.getElementById(linkId).addEventListener("click", event => {
            event.preventDefault();
-
            this.labUtil(file, func);
-
         });
 	}
 };

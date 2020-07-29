@@ -10,9 +10,9 @@
         <h3>TRACOM ACADEMY - SCHOOL MANAGEMENT SYSTEM</h3>
     </div>
     <div class="topnav">
-      <a class="active" href="#home">INSTITUTIONS</a>
+      <a class="active" href="#home" id="topnav-institutions">INSTITUTIONS</a>
       <a href="#">CAMPUSES</a>
-      <a href="#">FACULTIES</a>
+      <a href="#" id="topnav-faculties">FACULTIES</a>
       <a href="#">DEPARTMENTS</a>
       <a href="#">COURSES</a>
       <a href="#" id="topnav-units">UNITS</a>
