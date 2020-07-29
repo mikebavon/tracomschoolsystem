@@ -11,7 +11,7 @@ function renderFaculties() {
         },{
             header: "Title",
             dataIndex: "title",
-            width: 31
+            width: 30
                   },
 
          {
