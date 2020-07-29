@@ -3,4 +3,5 @@
     TracomAcademy.JsLoader.registerLinkHandler('topnav-institutions', 'institutions/institutions', 'renderInstitutions');
     TracomAcademy.JsLoader.registerLinkHandler('topnav-faculties', 'faculties/faculties', 'renderFaculties');
     TracomAcademy.JsLoader.registerLinkHandler('topnav-students', 'student/student', 'renderStudents');
+    TracomAcademy.JsLoader.registerLinkHandler('topnav-tutors', 'tutor/tutor', 'renderTutors');
 })();
