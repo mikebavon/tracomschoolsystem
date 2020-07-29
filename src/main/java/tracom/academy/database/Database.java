@@ -85,26 +85,11 @@ public class Database {
      * @param password database server user password
      * @param dbExists TRUE if database exists. Else FALSE
      */
-<<<<<<< HEAD
-    public Database(String url, String database, String userName, String password){
-=======
     public Database(String url, String database, String userName, String password, boolean dbExists) {
->>>>>>> 23c4fa88ffbb406024f44aef6bce8ce65b9bf407
         this.url = url;
         this.database = database;
         this.userName = userName;
         this.password = password;
-<<<<<<< HEAD
-    }
-
-    public void createDatabase(){
-        try{
-            Connection dbConnection = DriverManager.getConnection(this.url, this.userName, this.password);
-            Statement statement = dbConnection.createStatement();
-            statement.executeUpdate("create database if not exists " + this.database);
-
-        }catch (SQLException sqlException){
-=======
         this.dbExists = dbExists;
         try {
             if(this.dbExists)
@@ -112,7 +97,6 @@ public class Database {
             else
                 this.dbConnection = DriverManager.getConnection(this.url , this.userName, this.password);
         } catch (SQLException sqlException) {
->>>>>>> 23c4fa88ffbb406024f44aef6bce8ce65b9bf407
             sqlException.printStackTrace();
             //TODO handle exception properly
         }
@@ -230,8 +214,6 @@ public class Database {
         return dataSaved;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Retrieve all data from table
      * @return new ResultSet of table data. Else null on failure to query table
@@ -257,7 +239,6 @@ public class Database {
         return resultSet;
     }
 
->>>>>>> 23c4fa88ffbb406024f44aef6bce8ce65b9bf407
 
     public void executeQuery(String sql){
 
@@ -281,17 +262,6 @@ public class Database {
         }
     }
 
-    public Connection connect() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url+database, userName, password);
-            System.out.println("Connected to the DB server successfully.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Exiting...");
-        }
-        return conn;
-    }
 }
 
 
