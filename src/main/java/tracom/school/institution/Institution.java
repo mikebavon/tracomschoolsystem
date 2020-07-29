@@ -2,7 +2,7 @@ package tracom.school.institution;
 
 public class Institution {
 
-    private Long id;
+    private int id;
 
     private String name;
 
@@ -12,7 +12,7 @@ public class Institution {
 
     private String type;
 
-    public Institution(Long id, String name, String address, String location, String type){
+    public Institution(int id, String name, String address, String location, String type){
         this.id = id;
         this.name = name;
         this.address = address;
@@ -52,12 +52,11 @@ public class Institution {
         this.type = type;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
-
 }

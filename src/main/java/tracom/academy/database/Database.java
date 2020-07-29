@@ -162,10 +162,7 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.println("Exiting...");
-            System.exit(1);
         }
         return conn;
     }
 }
-
-
