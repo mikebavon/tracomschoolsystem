@@ -95,7 +95,7 @@ public class Database {
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
             
-            //TODO handle exception properly
+            
         }finally {
 
         }
@@ -107,6 +107,11 @@ public class Database {
      */
     public Connection getDbConnection(){
         return this.dbConnection;
+    }
+
+    public Connection connect () throws SQLException {
+        Connection dbConnection = DriverManager.getConnection(this.url + this.database, this.userName, this.password);
+        return dbConnection;
     }
 
 
@@ -123,13 +128,13 @@ public class Database {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            //TODO handle exception properly
+        
         } finally {
             try {
                 if (statement != null) statement.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                //TODO handle exception properly
+               
             }
         }
     }
@@ -145,13 +150,13 @@ public class Database {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            //TODO handle exception properly
+            
         } finally {
             try {
                 if (statement != null) statement.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                //TODO handle exception properly
+                
             }
         }
     }

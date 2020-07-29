@@ -10,11 +10,16 @@ import java.io.IOException;
 
 @WebServlet("/create-tables")
 public class CreateTablesServelet extends HttpServlet{
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "Okello3477#*");
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
         database.createDatabase();
         database.createTables();
-        //TODO redirect to index with SUCCESS/FAILURE message
+       
     }
 }
 

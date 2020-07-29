@@ -60,7 +60,7 @@ TracomAcademy.Grid = function(){
 
     //construct table columns
     me.columns.forEach(column => {
-        tableColGrp += `<col width='${column.width}%'>`;
+        tableColGrp += `<col width='${column.width}%'>`;    
         tableHeader += `<th>${column.header}</th>`;
 
     });
