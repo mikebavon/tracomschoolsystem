@@ -19,15 +19,15 @@ import java.util.Random;
 public class UnitAction extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
-        String code = request.getParameter("code");
-        String details = request.getParameter("details");
-
-        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
-        database.executeQuery("insert into units (unit_id, name, code, details) values(" + (new Random()).nextInt(10000) + ",'" + name + "','" + code+ "','" + details+
-                    "')");
-
-        response.getWriter().println("Saved");
+//        String name = request.getParameter("name");
+//        String code = request.getParameter("code");
+//        String details = request.getParameter("details");
+//
+//        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "", true);
+//        database.executeQuery("insert into units (unit_id, name, code, details) values(" + (new Random()).nextInt(10000) + ",'" + name + "','" + code+ "','" + details+
+//                    "')");
+//
+//        response.getWriter().println("Saved");
 
 
 

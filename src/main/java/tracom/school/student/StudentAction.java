@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
@@ -18,48 +19,68 @@ import java.util.Random;
 @WebServlet(urlPatterns = {"/student"})
 public class StudentAction extends HttpServlet{
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        //String details = request.getParameter("details");
-
-        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password");
-        database.executeQuery("insert into students(name,email) values(" + name + "','" + email+ "')");
-
-
-        // try {
-        // Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.254.189:3306/shule_yetu","tracom", "password");
-        //     String insertQuery = "INSERT INTO students (NAME,EMAIL) VALUES (?,?)";
-        //     PreparedStatement statement = connection.prepareStatement(insertQuery);
-        //     connection.setAutoCommit(false);
-        //     connection.commit();
-        //     statement.setString(1, name);
-        //     statement.setString(2, email);
-        //     //int rows = statement.executeUpdate();
-        //     // if(rows > 0)
-        //     //     messageSaved = true;
-        //     connection.setAutoCommit(true);
-        // }catch (SQLException sqlException){
-        //     //messageSaved = false;
-        //     System.out.println("message has been saved");
-        // }
-        //return messageSaved;
-
-        response.getWriter().println("Saved");
-
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password", true);
+        int id = Integer.parseInt(request.getParameter("sid"));
+        String name = request.getParameter("sname");
+        String email = request.getParameter("semail");
+        boolean dataSaved = false;
+        PreparedStatement statement = null;
+        try {
+            String insertQuery = "INSERT INTO shule_yetu.students (STUDENT_ID, NAME, EMAIL) VALUES (?,?,?)";
+            statement = database.getDbConnection().prepareStatement(insertQuery);
+            database.getDbConnection().setAutoCommit(false);
+            database.getDbConnection().commit();
+            statement.setInt(1, id);
+            statement.setString(2, name);
+            statement.setString(3, email);
+            int rows = statement.executeUpdate();
+            if(rows > 0) dataSaved = true;
+            database.getDbConnection().setAutoCommit(true);
+        }catch (SQLException sqlException){
+            dataSaved = false;
+            //TODO handle exception properly
+        }finally {
+            try {
+                if (statement != null) statement.close();
+                if (database.getDbConnection() != null) database.getDbConnection().close();
+                if(dataSaved) response.getWriter().println("Saved");
+                else response.getWriter().println("OK");
+            } catch (Exception e) {
+                e.printStackTrace();
+                //TODO handle exception properly
+            }
+        }
     }
-    
+
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password", true);
+        String sql = "SELECT * FROM shule_yetu.students";
         List<Student> students = new ArrayList<Student>();
-
-        students.add(new Student(1L, "MATHEMATICS", "0001", "MATHEMATICS"));
-        students.add(new Student(2L, "ENGLISH", "0002", "ENGLISH"));
-        // units.add(new Unit(3L, "KISWAHILI", "0003", "KISWAHILI"));
-        // units.add(new Unit(4L, "SCIENCE", "0004", "SCIENCE"));
-        // units.add(new Unit(5L, "GEOGRAPHY", "0005", "GEOGRAPHY"));
-
-        ObjectMapper json = new ObjectMapper();
-        response.getWriter().println(json.writeValueAsString(students));
-
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = database.getDbConnection().prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                int id = resultSet.getInt("STUDENT_ID");
+                String name = resultSet.getString("NAME");
+                String email = resultSet.getString("EMAIL");
+                students.add(new Student(id, name, email));
+            }
+            ObjectMapper json = new ObjectMapper();
+            response.getWriter().println(json.writeValueAsString(students));
+        }catch (SQLException sqlException){
+            sqlException.printStackTrace();
+            //TODO handle exception properly
+        }finally {
+            try {
+                if (statement != null) statement.close();
+                if (database.getDbConnection() != null) database.getDbConnection().close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                //TODO handle exception properly
+            }
+        }
     }
 }
