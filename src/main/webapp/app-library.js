@@ -58,6 +58,8 @@ TracomAcademy.Grid = function(){
     let tableHeader = '';
     let tableRows = '';
 
+    let deleteUrl = "http://deleteDept/"
+
     //construct table columns
     me.columns.forEach(column => {
         tableColGrp += `<col width='${column.width}%'>`;    
@@ -76,7 +78,12 @@ TracomAcademy.Grid = function(){
             me.store.forEach(record => {
                 tableRows += `<tr>`;
                 me.columns.forEach(column => {
-                    tableRows += `<td>${record[column.dataIndex]}</td>`;
+                    if (column.dataIndex == "delete"){
+                        tableRows += `<td><button class="button delete" id="${record.id}" data-id=${record.id}>Delete</button></td>`;
+                    } else {
+                        tableRows += `<td>${record[column.dataIndex]}</td>`;
+                    }
+                    
                 });
                 tableRows += `</tr>`;
 
@@ -103,7 +110,7 @@ TracomAcademy.Grid = function(){
         `<div style="overflow-x:auto;">`
             + `<button class="button add" id="${addButton}">Add</button> `
             + `<button class="button edit" id="${editButton}">Edit</button> `
-            + `<button class="button delete" id="${deleteButton}">Delete</button>`
+            // + `<button class="button delete" id="${deleteButton}">Delete</button>`
         + `</div>`
         + `<div style="overflow-x:auto;">`
             + `<table class="tracom-academy">`
@@ -117,6 +124,31 @@ TracomAcademy.Grid = function(){
     document.getElementById(addButton).addEventListener("click", function(){
         TracomAcademy.Form.call(me);
     });
+
+    let deleteBtns = document.querySelectorAll(".delete");
+    deleteBtns.forEach(btn => {
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            let xhr = new XMLHttpRequest();
+           
+            xhr.open("delete", `${me.url}?id=${btn.dataset.id}`, false);
+            xhr.onload  = function() {
+                if (xhr.status == 200) {
+                    alert(xhr.responseText);
+                    TracomAcademy.Grid.call(me);
+                } else {
+                    alert("Error occurred " + xhr.status);
+                }
+            }
+            xhr.send();
+        
+
+            
+
+        })
+
+    })
+
 
 
 

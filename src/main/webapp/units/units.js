@@ -20,7 +20,11 @@ function renderUnits(){
             header: "Details",
             dataIndex: "details",
             width: 30
-        }],
+        },{
+				header: "",
+				dataIndex: "delete",
+				width: 25,
+			}],
         store: [],
         form: {
             id: "units-form",

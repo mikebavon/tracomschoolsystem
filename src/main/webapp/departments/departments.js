@@ -22,7 +22,11 @@ function renderDepartments(){
 				dataIndex: "dpcode",
 				width: 25,
 			},
-
+			{
+				header: "",
+				dataIndex: "delete",
+				width: 25,
+			},
 		],
 
 		store: [],
@@ -42,7 +46,6 @@ function renderDepartments(){
 					id: "departments.code",
 					type: "text",
 				},
-
 			],
 		},
 	});
