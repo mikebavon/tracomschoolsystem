@@ -37,13 +37,13 @@ function renderDepartments(){
 				{
 					label: "DepartmentName",
 					name: "dpname",
-					id: "departments.cname",
+					id: "departments.dpname",
 					type: "text",
 				},
 				{
 					label: "HeadOfDepartment",
 					name: "dpcode",
-					id: "departments.code",
+					id: "departments.dpcode",
 					type: "text",
 				},
 			],

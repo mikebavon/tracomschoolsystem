@@ -58,7 +58,7 @@ TracomAcademy.Grid = function(){
     let tableHeader = '';
     let tableRows = '';
 
-    let deleteUrl = "http://deleteDept/"
+    
 
     //construct table columns
     me.columns.forEach(column => {

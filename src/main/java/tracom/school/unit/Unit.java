@@ -2,7 +2,7 @@ package tracom.school.unit;
 
 public class Unit {
 
-    private Long id;
+    private int id;
 
     private String name;
 
@@ -12,18 +12,18 @@ public class Unit {
 
     public Unit(){}
 
-    public Unit(Long id, String name, String code, String details){
+    public Unit(int id, String name, String code, String details){
         this.id = id;
         this.code = code;
         this.name = name;
         this.details = details;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

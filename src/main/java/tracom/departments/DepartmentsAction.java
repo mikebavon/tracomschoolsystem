@@ -1,6 +1,6 @@
 package tracom.departments;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.xdevapi.PreparableStatement;
+
 
 import tracom.academy.database.Database;
 
@@ -112,7 +112,7 @@ protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws
 		} catch (SQLException e) {
             
             
-			e.printStackTrace();
+			e.getMessage();
         }
 
         
