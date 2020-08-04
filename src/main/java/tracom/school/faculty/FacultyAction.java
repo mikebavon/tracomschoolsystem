@@ -26,8 +26,8 @@ public class FacultyAction extends HttpServlet {
         String institution = request.getParameter("institution");
 
         try {
-            Database DB = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password");
-            Connection conn = DB.connect();
+            Database DB = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password", true);
+            Connection conn = DB.getDbConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("insert into faculties(title,name,institution ) values('" + title + "','" + name + "','" + institution +
                     "')");

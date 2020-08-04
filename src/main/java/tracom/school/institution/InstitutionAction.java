@@ -27,8 +27,8 @@ public class InstitutionAction extends HttpServlet {
         String type = request.getParameter("type");
 
         try {
-            Database DB = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
-            Connection conn = DB.connect();
+            Database DB = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "", true);
+            Connection conn = DB.getDbConnection();
             Statement stmt = conn.createStatement();
             stmt.executeQuery("insert into institutions (name, address, location, type) values("
                     + ",'" + name + "','" + address + "','" + location + "','" + type +
