@@ -13,8 +13,8 @@
       <a class="active" href="#home" id="topnav-institutions">INSTITUTIONS</a>
       <a href="#">CAMPUSES</a>
       <a href="#" id="topnav-faculties">FACULTIES</a>
-      <a href="#">DEPARTMENTS</a>
-      <a href="#">COURSES</a>
+      <a href="#" id="topnav-departments">DEPARTMENTS</a>
+      <a href="#" id="topnav-courses">COURSES</a>
       <a href="#" id="topnav-units">UNITS</a>
       <a href="#" id="topnav-students">STUDENTS</a>
       <a href="#" id="topnav-tutors">TUTORS</a>
