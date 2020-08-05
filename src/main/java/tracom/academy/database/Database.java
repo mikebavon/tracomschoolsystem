@@ -2,7 +2,7 @@ package tracom.academy.database;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 /**
  * Connect to the database, create database/tables and handle CRUD operations.
@@ -65,6 +65,14 @@ public class Database {
             + "INSTITUTION VARCHAR(45) NOT NULL,"
             + "PRIMARY KEY (FACULTY_ID))";
 
+    private final String CREATE_TABLE_USERS_SQL="CREATE TABLE IF NOT EXISTS users ("
+            + "USER_ID int(11) NOT NULL AUTO_INCREMENT,"
+            + "NAME VARCHAR(45) NOT NULL,"
+            + "EMAIL VARCHAR(45) NOT NULL,"
+            + "PASSWORD VARCHAR(255) NOT NULL,"
+            + "ROLE VARCHAR(45) NOT NULL,"
+            + "PRIMARY KEY (USER_ID))";
+
     private final String[] createTablesSql= {
             this.CREATE_TABLE_COURSES_SQL,
             this.CREATE_TABLE_UNITS_SQL,
@@ -72,7 +80,8 @@ public class Database {
             this.CREATE_TABLE_FACULTY_SQL,
             this.CREATE_TABLE_INSTITUTIONS_SQL,
             this.CREATE_TABLE_STUDENTS_SQL,
-            this.CREATE_TABLE_TUTORS_SQL
+            this.CREATE_TABLE_TUTORS_SQL,
+            this.CREATE_TABLE_USERS_SQL
     };
 
     /**
@@ -154,91 +163,6 @@ public class Database {
             }
         }
     }
-
-    /**
-     * Get all data of type String that is to be saved.
-     * @param strings
-     */
-    public void stringData(String ...strings){
-        for(String s: strings) this.stringData.add(s);
-    }
-
-    /**
-     * Get all data of type int that is to be saved.
-     * @param ints
-     */
-    public void integerData(int ...ints){
-        for(int i: ints) this.integerData.add(i);
-    }
-
-    /**
-     * Insert data in the table.
-     * @param sql
-     * @return TRUE if data saved successfully. Otherwise FALSE.
-     */
-    public boolean save(String sql){
-        boolean dataSaved = false;
-        Iterator stringIterator = this.stringData.iterator();
-        Iterator integerIterator = this.integerData.iterator();
-        PreparedStatement statement = null;
-        try {
-            statement = this.dbConnection.prepareStatement(sql);
-            this.dbConnection.setAutoCommit(false);
-            this.dbConnection.commit();
-            int idx = 1;
-            while(stringIterator.hasNext()){
-                statement.setString(idx, (String) stringIterator.next());
-                idx++;
-            }
-            while (integerIterator.hasNext()) {
-                statement.setInt(idx, (Integer) integerIterator.next());
-                idx++;
-            }
-            int rows = statement.executeUpdate();
-            if(rows > 0)
-                dataSaved = true;
-            this.dbConnection.setAutoCommit(true);
-        }catch (SQLException sqlException){
-            dataSaved = false;
-        }finally {
-            this.stringData.clear();
-            this.integerData.clear();
-            try {
-                if (statement != null) statement.close();
-                if (this.dbConnection != null) this.dbConnection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                //TODO handle exception properly
-            }
-        }
-        return dataSaved;
-    }
-
-    /**
-     * Retrieve all data from table
-     * @return new ResultSet of table data. Else null on failure to query table
-     */
-    public ResultSet read(String sql){
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = this.dbConnection.prepareStatement(sql);
-            resultSet = statement.executeQuery();
-        }catch (SQLException sqlException){
-            sqlException.printStackTrace();
-            //TODO handle exception properly
-        }finally {
-            try {
-                if (statement != null) statement.close();
-                if (this.dbConnection != null) this.dbConnection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                //TODO handle exception properly
-            }
-        }
-        return resultSet;
-    }
-
 
     public void executeQuery(String sql){
 
