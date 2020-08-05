@@ -6,17 +6,25 @@ public class Department {
 
         private String dpname;
 
-        private String HOD;
+        private String headofde;
 
 
+    public Department(int id, String dpname, String headofde){
+        this.id = id;
+        this.dpname = dpname;
+        this.headofde = headofde;
+
+    }
+
+    public String getHeadofde() {
+        return headofde;
+    }
+
+    public void setHeadofde(String headofde) {
+        this.headofde = headofde;
+    }
 
 
-        public Department(int id, String dpname, String HOD){
-            this.id = id;
-            this.dpname = dpname;
-            this.HOD = HOD;
-
-        }
 
         public int getId() {
             return id;
@@ -34,13 +42,7 @@ public class Department {
             this.dpname = dpname;
         }
 
-        public String getHOD() {
-            return HOD;
-        }
 
-        public void setHOD(String HOD) {
-            this.HOD = HOD;
-        }
 
 
     }
