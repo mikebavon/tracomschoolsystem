@@ -23,7 +23,7 @@ public class InstitutionAction extends HttpServlet {
         String type = request.getParameter("type");
 
         try {
-            Database DB = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "desiderata");
+            Database DB = new Database("jdbc:mysql://192.168.254.189:3306:3306/", "shule_yetu","tracom", "password", true);
             Connection conn = DB.connect();
             String sql = "insert into institutions set name=?, address=?, location=?, type =?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class InstitutionAction extends HttpServlet {
 
         ResultSet result = null;
         try {
-            Database DB = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "desiderata");
+            Database DB = new Database("jdbc:mysql://192.168.254.189:3306:3306/", "shule_yetu","tracom", "password", true);
             Connection conn = DB.connect();
             Statement stmt = conn.createStatement();
             result = stmt.executeQuery("select * from shule_yetu.institutions");
@@ -57,10 +57,8 @@ public class InstitutionAction extends HttpServlet {
         }
 
         if (result != null) {
-          System.out.println("Result is not null...");
           try {
             while (result.next()) {
-              result.getString(2);
               institutions.add(
                   new Institution(
                     result.getInt("id"),
