@@ -147,25 +147,25 @@ TracomAcademy.Grid = function(){
 
     })
 
-    let editBtns = document.querySelectorAll(".delete");
-    deleteBtns.forEach(btn => {
-        btn.addEventListener("click", function(e) {
-            e.preventDefault();
-            let xhr = new XMLHttpRequest();
+    // let editBtns = document.querySelectorAll(".delete");
+    // deleteBtns.forEach(btn => {
+    //     btn.addEventListener("click", function(e) {
+    //         e.preventDefault();
+    //         let xhr = new XMLHttpRequest();
            
-            xhr.open("delete", `${me.url}?id=${btn.dataset.id}`, false);
-            xhr.onload  = function() {
-                if (xhr.status == 200) {
-                    alert(xhr.responseText);
-                    TracomAcademy.Grid.call(me);
-                } else {
-                    alert("Error occurred " + xhr.status);
-                }
-            }
-            xhr.send();    
-        })
+    //         xhr.open("delete", `${me.url}?id=${btn.dataset.id}`, false);
+    //         xhr.onload  = function() {
+    //             if (xhr.status == 200) {
+    //                 alert(xhr.responseText);
+    //                 TracomAcademy.Grid.call(me);
+    //             } else {
+    //                 alert("Error occurred " + xhr.status);
+    //             }
+    //         }
+    //         xhr.send();    
+    //     })
 
-    })
+    // })
 
 
 
