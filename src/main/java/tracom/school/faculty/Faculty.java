@@ -2,7 +2,7 @@ package tracom.school.faculty;
 
 public class Faculty{
 
-    private Long id;
+    private int id;
 
     private String title;
 
@@ -10,7 +10,7 @@ public class Faculty{
 
     private String institution;
 
-    public Faculty(Long id, String title, String name, String institution) {
+    public Faculty(int id, String title, String name, String institution) {
         this.id = id;
         this.title = title;
         this.name = name;
@@ -18,11 +18,11 @@ public class Faculty{
 
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

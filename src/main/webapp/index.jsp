@@ -29,7 +29,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <SCript>
+    <script>
         $(function() {
             // Check if a user session exists. Set the links in the navbar accordngly.
             fetch('http://localhost:8080/SchoolMgtSystem/login')
@@ -58,7 +58,8 @@
             )
             .catch(err => console.log('Fetch Error :-S', err));
         });
-    </SCript>
+    </script>
     <script src="app-library.js"></script>
     <script src="links.js"></script>
+</body>
 </html>
