@@ -83,4 +83,25 @@ public class StudentAction extends HttpServlet{
             }
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu", "tracom", "password",
+                true);
+    // Delete item by id in the database
+        final String id = req.getParameter("id");
+        try {
+            Connection connection = database.connect();
+            String deleteQuery = "DELETE FROM shule_yetu.students WHERE STUDENT_ID=?";
+            PreparedStatement statement = connection.prepareStatement(deleteQuery);
+            statement.setInt(1, Integer.parseInt(id));
+            statement.executeUpdate();
+
+            resp.getWriter().println("Deleted Successfully");
+
+        } catch (SQLException e) {
+
+            e.getMessage();
+        }
+    }
 }
