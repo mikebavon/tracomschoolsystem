@@ -2,16 +2,14 @@ package tracom.school.tutor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import tracom.academy.database.Database;
-import tracom.school.student.Student;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,16 +54,17 @@ public class TutorAction extends HttpServlet {
     }
 
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password", true);
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu", "tracom", "password",
+                true);
         String sql = "SELECT * FROM shule_yetu.tutors";
-        List<Tutor> tutors= new ArrayList<Tutor>();
+        List<Tutor> tutors = new ArrayList<Tutor>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = database.getDbConnection().prepareStatement(sql);
             resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt("TUTOR_ID");
                 int payroll = resultSet.getInt("PAYROLL_NO");
                 String name = resultSet.getString("NAME");
@@ -75,13 +74,15 @@ public class TutorAction extends HttpServlet {
             }
             ObjectMapper json = new ObjectMapper();
             response.getWriter().println(json.writeValueAsString(tutors));
-        }catch (SQLException sqlException){
+        } catch (SQLException sqlException) {
             sqlException.printStackTrace();
             //TODO handle exception properly
-        }finally {
+        } finally {
             try {
-                if (statement != null) statement.close();
-                if (database.getDbConnection() != null) database.getDbConnection().close();
+                if (statement != null)
+                    statement.close();
+                if (database.getDbConnection() != null)
+                    database.getDbConnection().close();
             } catch (Exception e) {
                 e.printStackTrace();
                 //TODO handle exception properly
