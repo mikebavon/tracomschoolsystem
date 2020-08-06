@@ -32,7 +32,6 @@ public class InstitutionAction extends HttpServlet {
             stmt.setString(3, location);
             stmt.setString(4, type);
             stmt.executeUpdate();
-
             System.out.println("saved to DB");
         } catch (SQLException e) {
             System.err.println(e);
