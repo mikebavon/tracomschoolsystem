@@ -16,7 +16,18 @@ function renderStudents(){
             header: "Email",
             dataIndex: "email",
             width: 30
-        }],
+            },
+        {
+            header: "",
+            dataIndex: "delete",
+            width: 15,
+            },
+        {
+            header: "",
+            dataIndex: "edit",
+            width: 15,
+        },
+        ],
         store: [],
         form: {
             id: "students-form",
