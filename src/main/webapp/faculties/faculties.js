@@ -22,7 +22,16 @@ function renderFaculties() {
             header: "Institution",
             dataIndex: "institution",
             width: 20
-        }],
+        }, {
+            header: "",
+            dataIndex: "delete",
+            width: 25,
+        }, {
+            header: "",
+            dataIndex: "edit",
+            width: 25,
+        },
+        ],
 
         store: [],
 

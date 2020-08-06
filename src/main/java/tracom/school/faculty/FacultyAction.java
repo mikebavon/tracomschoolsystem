@@ -41,13 +41,6 @@ public class FacultyAction extends HttpServlet {
         }
 
 
-
-
-//        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "");
-//        database.executeQuery("insert into institutions (name, address, location, type) values("
-//                + ",'" + name + "','" + address + "','" + location + "','" + type +
-//                "')");
-
         response.getWriter().println("Saved");
         response.getWriter().println(title);
 
@@ -55,17 +48,7 @@ public class FacultyAction extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-//        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "");
-//        database.executeQuery("insert into institutions (name, address, location, type) values("
-//                + ",'" + name + "','" + address + "','" + location + "','" + type +
-//                "')");
-
         List<Faculty>faculties = new ArrayList<Faculty>();
-
-        faculties.add(new Faculty(1L, "ITMO1", "1523 HK", "Hong Kong"));
-        faculties.add(new Faculty(2L, "ITMO1", "1523 HK", "Hong Kong"));
-        faculties.add(new Faculty(3L, "ITMO1", "1523 HK", "Hong Kong"));
-        faculties.add(new Faculty(4L, "ITMO1", "1523 HK", "Hong Kong"));
 
         ResultSet result = null;
         try {

@@ -80,6 +80,8 @@ TracomAcademy.Grid = function(){
                 me.columns.forEach(column => {
                     if (column.dataIndex == "delete"){
                         tableRows += `<td><button class="button delete" id="${record.id}" data-id=${record.id}>Delete</button></td>`;
+                    } else if (column.dataIndex == "edit") {
+                        tableRows += `<td><button class="button edit" id="${record.id}" data-id=${record.id}>Edit</button></td>`;
                     } else {
                         tableRows += `<td>${record[column.dataIndex]}</td>`;
                     }
@@ -140,11 +142,27 @@ TracomAcademy.Grid = function(){
                     alert("Error occurred " + xhr.status);
                 }
             }
-            xhr.send();
-        
+            xhr.send();    
+        })
 
-            
+    })
 
+    let editBtns = document.querySelectorAll(".delete");
+    deleteBtns.forEach(btn => {
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            let xhr = new XMLHttpRequest();
+           
+            xhr.open("delete", `${me.url}?id=${btn.dataset.id}`, false);
+            xhr.onload  = function() {
+                if (xhr.status == 200) {
+                    alert(xhr.responseText);
+                    TracomAcademy.Grid.call(me);
+                } else {
+                    alert("Error occurred " + xhr.status);
+                }
+            }
+            xhr.send();    
         })
 
     })
