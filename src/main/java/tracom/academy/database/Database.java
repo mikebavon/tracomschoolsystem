@@ -194,7 +194,7 @@ public class Database {
     public Connection connect() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(url+database, userName, password);
+            conn = DriverManager.getConnection(this.url+this.database, this.userName, this.password);
             System.out.println("Connected to the DB server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
