@@ -9,7 +9,7 @@ import java.io.IOException;
 @WebServlet("/create-db")
 public class CreateDatabaseServelet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Database database = new Database("jdbc:mysql://localhost:3306/","shule_yetu","root", "password1234", false);
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/","shule_yetu","tracom", "password", false);
         database.createDatabase();
         //TODO redirect to index with SUCCESS/FAILURE message
     }

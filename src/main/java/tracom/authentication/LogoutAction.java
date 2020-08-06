@@ -18,6 +18,6 @@ public class LogoutAction  extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session != null) session.invalidate();
-        response.sendRedirect("http://localhost:8080/SchoolMgtSystem");
+        response.sendRedirect("http://192.168.254.189:8080/SchoolMgtSystem");
     }
 }

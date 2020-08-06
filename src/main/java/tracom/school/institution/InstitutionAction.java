@@ -27,7 +27,7 @@ public class InstitutionAction extends HttpServlet {
         String type = request.getParameter("type");
 
         try {
-            Database DB = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "", true);
+            Database DB = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "", true);
             Connection conn = DB.getDbConnection();
             Statement stmt = conn.createStatement();
             stmt.executeQuery("insert into institutions (name, address, location, type) values("
@@ -41,7 +41,7 @@ public class InstitutionAction extends HttpServlet {
 
 
 
-//        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
+//        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "");
 //        database.executeQuery("insert into institutions (name, address, location, type) values("
 //                + ",'" + name + "','" + address + "','" + location + "','" + type +
 //                "')");
@@ -52,7 +52,7 @@ public class InstitutionAction extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-//        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
+//        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "");
 //        database.executeQuery("insert into institutions (name, address, location, type) values("
 //                + ",'" + name + "','" + address + "','" + location + "','" + type +
 //                "')");

@@ -39,7 +39,7 @@ public class FacultyAction extends HttpServlet {
 
 
 
-//        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
+//        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "");
 //        database.executeQuery("insert into institutions (name, address, location, type) values("
 //                + ",'" + name + "','" + address + "','" + location + "','" + type +
 //                "')");
@@ -51,7 +51,7 @@ public class FacultyAction extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-//        Database database = new Database("jdbc:mysql://localhost:3306/", "shule_yetu","root", "");
+//        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "");
 //        database.executeQuery("insert into institutions (name, address, location, type) values("
 //                + ",'" + name + "','" + address + "','" + location + "','" + type +
 //                "')");

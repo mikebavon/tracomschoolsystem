@@ -29,7 +29,7 @@ public class display extends HttpServlet {
         String last_name = request.getParameter("last_name");
         String job = request.getParameter("job");
 
-        Database database = new Database("jdbc:mysql://localhost:3306/", "tracom","root", "Mclass#64",true);
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "tracom","tracom", "Mclass#64",true);
         database.executeQuery("select * from register ");
 
 //        response.getWriter().println("Saved");

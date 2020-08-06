@@ -26,7 +26,7 @@ public class registerAction extends HttpServlet {
         String last_name = request.getParameter("last_name");
         String job = request.getParameter("job");
 
-        Database database = new Database("jdbc:mysql://localhost:3306/", "tracom","root", "Mclass#64",true);
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "tracom","tracom", "Mclass#64",true);
         database.executeQuery("insert into register(register_id,first_name,last_name,job) values(" + (new Random()).nextInt(10000) + ",'" + first_name + "','" + last_name+ "','" + job+
                 "')");
 
@@ -40,7 +40,7 @@ public class registerAction extends HttpServlet {
 
         List<Register> register = new ArrayList<Register>();
 
-        Database database = new Database("jdbc:mysql://localhost:3306/", "tracom","root", "Mclass#64",true);
+        Database database = new Database("jdbc:mysql://192.168.254.189:3306/", "tracom","tracom", "Mclass#64",true);
         Connection conn = database.getDbConnection();
         ResultSet rs = null;
         try {
