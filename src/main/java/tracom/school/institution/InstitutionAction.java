@@ -16,6 +16,8 @@ import java.sql.*;
 @WebServlet(urlPatterns = {"/institutions"})
 public class InstitutionAction extends HttpServlet {
 
+    final Database DB = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password",true);
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
@@ -23,7 +25,6 @@ public class InstitutionAction extends HttpServlet {
         String type = request.getParameter("type");
 
         try {
-            Database DB = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password", true);
             Connection conn = DB.connect();
             String sql = "insert into institutions set name=?, address=?, location=?, type =?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -46,7 +47,6 @@ public class InstitutionAction extends HttpServlet {
 
         ResultSet result = null;
         try {
-            Database DB = new Database("jdbc:mysql://192.168.254.189:3306:3306/", "shule_yetu","tracom", "password", true);
             Connection conn = DB.connect();
             Statement stmt = conn.createStatement();
             result = stmt.executeQuery("select * from shule_yetu.institutions");
