@@ -37,6 +37,13 @@ public class InstitutionAction extends HttpServlet {
             System.err.println(e);
         }
 
+        response.getWriter().println("Saved");
+
+    }
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Institution> institutions = new ArrayList<>();
+
         ResultSet result = null;
         try {
             Database DB = new Database("jdbc:mysql://192.168.254.189:3306:3306/", "shule_yetu","tracom", "password", true);

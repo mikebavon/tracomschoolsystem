@@ -40,7 +40,6 @@ public class FacultyAction extends HttpServlet {
             System.err.println(e);
         }
 
-
         response.getWriter().println("Saved");
         response.getWriter().println(title);
 
@@ -48,7 +47,7 @@ public class FacultyAction extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        List<Faculty>faculties = new ArrayList<Faculty>();
+        List<Faculty> faculties = new ArrayList<Faculty>();
 
         ResultSet result = null;
         try {
