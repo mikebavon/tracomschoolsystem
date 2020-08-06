@@ -118,6 +118,11 @@ public class Database {
         return this.dbConnection;
     }
 
+    public Connection connect () throws SQLException {
+        Connection dbConnection = DriverManager.getConnection(this.url + this.database, this.userName, this.password);
+        return dbConnection;
+    }
+
     /**
      * Create a new database.
      */
