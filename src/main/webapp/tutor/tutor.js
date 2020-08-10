@@ -26,7 +26,18 @@ function renderTutors(){
               header: "Department",
               dataIndex: "department",
                width: 30
-              }],
+            },
+            {
+                header: "",
+                dataIndex: "delete",
+                width: 15,
+            },
+            {
+                header: "",
+                dataIndex: "edit",
+                width: 15,
+            },
+        ],
 
         store: [],
 
