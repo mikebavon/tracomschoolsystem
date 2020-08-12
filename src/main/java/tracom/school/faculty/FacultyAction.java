@@ -20,13 +20,13 @@ import java.sql.*;
 @WebServlet(urlPatterns = {"/faculties"})
 public class FacultyAction extends HttpServlet {
 
+    final Database DB  = new Database("jdbc:mysql://192.168.254.189:3306/", "shule_yetu","tracom", "password",true);
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String title = request.getParameter("title");
         String name = request.getParameter("name");
         String institution = request.getParameter("institution");
 
         try {
-            Database DB = new Database("jdbc:mysql://192.168.254.189:3306:3306/", "shule_yetu","tracom", "password", true);
             Connection conn = DB.connect();
             String sql = "insert into faculties set title=?, name=?, institution=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -51,7 +51,6 @@ public class FacultyAction extends HttpServlet {
 
         ResultSet result = null;
         try {
-            Database DB = new Database("jdbc:mysql://192.168.254.189:3306:3306/", "shule_yetu","tracom", "password", true);
             Connection conn = DB.connect();
             Statement stmt = conn.createStatement();
             result = stmt.executeQuery("select * from shule_yetu.faculties");
@@ -65,7 +64,7 @@ public class FacultyAction extends HttpServlet {
             while (result.next()) {
               faculties.add(
                   new Faculty(
-                    result.getInt("id"),
+                    result.getInt("faculty_id"),
                     result.getString("title"),
                     result.getString("name"),
                     result.getString("institution")
